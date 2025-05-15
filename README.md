@@ -106,10 +106,23 @@ The application can be deployed to various platforms:
 
 > **Important**: The app requires these environment variables to function. They are not included in version control for security reasons.
 
-### Manual Deployment
-1. Build the project: `npm run build`
-2. The `dist` folder will contain the built application
-3. Deploy the contents to any static hosting service
+### GitHub Pages Deployment
+1. Ensure your environment variables are set in GitHub repository secrets:
+   - Go to Settings → Secrets and variables → Actions
+   - Add your environment variables as secrets:
+     ```
+     VITE_SUPABASE_URL
+     VITE_SUPABASE_ANON_KEY
+     VITE_ALPHA_VANTAGE_API_KEY
+     ```
+2. Deploy using one of these methods:
+   - Push to main branch (automatic deployment via GitHub Actions)
+   - Run manually: `npm run deploy`
+3. Configure GitHub Pages:
+   - Go to Settings → Pages
+   - Set branch to `gh-pages` and folder to `/ (root)`
+
+The site will be available at: https://ThandoTsela.github.io/StockLookup
 
 ## Environment Variables
 
