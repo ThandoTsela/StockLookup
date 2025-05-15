@@ -124,6 +124,44 @@ The application can be deployed to various platforms:
 
 The site will be available at: https://ThandoTsela.github.io/StockLookup
 
+## Docker Deployment
+
+The application can be run using Docker. This is the recommended way to run the application as it ensures consistency across different environments.
+
+### Using Docker Compose (Recommended)
+
+1. Create a `.env` file with your environment variables:
+   ```env
+   VITE_SUPABASE_URL=your_supabase_url
+   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+   VITE_ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key
+   ```
+
+2. Run the application:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. Access the application at `http://localhost:8080`
+
+### Using Docker Directly
+
+1. Build the image:
+   ```bash
+   docker build -t stock-lookup-app .
+   ```
+
+2. Run the container:
+   ```bash
+   docker run -p 8080:80 \
+     -e VITE_SUPABASE_URL=your_supabase_url \
+     -e VITE_SUPABASE_ANON_KEY=your_supabase_anon_key \
+     -e VITE_ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key \
+     stock-lookup-app
+   ```
+
+3. Access the application at `http://localhost:8080`
+
 ## Environment Variables
 
 | Variable | Description |
