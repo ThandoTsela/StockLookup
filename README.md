@@ -1,3 +1,5 @@
+Authors: Thando Tsela
+
 # Stock Price Lookup App
 
 A modern web application built with React and TypeScript that allows users to look up stock prices. The application features user authentication and real-time stock data fetching.
