@@ -20,35 +20,22 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Create env file
+      - name: Build with environment variables
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_ALPHA_VANTAGE_API_KEY: ${{ secrets.VITE_ALPHA_VANTAGE_API_KEY }}
         run: |
-          echo "VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}" >> .env.production
-          echo "VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}" >> .env.production
-          echo "VITE_ALPHA_VANTAGE_API_KEY=${{ secrets.VITE_ALPHA_VANTAGE_API_KEY }}" >> .env.production
-
-      - name: Verify env file
-        run: |
-          echo "Checking environment file..."
-          if [ ! -f .env.production ]; then
-            echo "Error: .env.production file not created"
-            exit 1
-          fi
-          if ! grep -q VITE_SUPABASE_URL .env.production; then
-            echo "Error: VITE_SUPABASE_URL not in .env.production"
-            exit 1
-          fi
-          if ! grep -q VITE_SUPABASE_ANON_KEY .env.production; then
-            echo "Error: VITE_SUPABASE_ANON_KEY not in .env.production"
-            exit 1
-          fi
-          if ! grep -q VITE_ALPHA_VANTAGE_API_KEY .env.production; then
-            echo "Error: VITE_ALPHA_VANTAGE_API_KEY not in .env.production"
-            exit 1
-          fi
-          echo "Environment file verified successfully"
-
-      - name: Build
-        run: npm run build
+          # Create a temporary .env file for the build
+          echo "VITE_SUPABASE_URL='$VITE_SUPABASE_URL'" > .env
+          echo "VITE_SUPABASE_ANON_KEY='$VITE_SUPABASE_ANON_KEY'" >> .env
+          echo "VITE_ALPHA_VANTAGE_API_KEY='$VITE_ALPHA_VANTAGE_API_KEY'" >> .env
+          
+          # Build the project
+          npm run build
+          
+          # Clean up
+          rm .env
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
