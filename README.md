@@ -92,7 +92,17 @@ The application can be deployed to various platforms:
 ### Netlify (Recommended)
 1. Install Netlify CLI: `npm install -g netlify-cli`
 2. Build the project: `npm run build`
-3. Deploy: `netlify deploy`
+3. Set up environment variables in Netlify:
+   - Go to Netlify dashboard → Site settings → Build & deploy → Environment variables
+   - Add the following variables:
+     ```
+     VITE_SUPABASE_URL=your_supabase_project_url
+     VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+     VITE_ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key
+     ```
+4. Deploy: `netlify deploy`
+
+> **Important**: The app requires these environment variables to function. They are not included in version control for security reasons.
 
 ### Manual Deployment
 1. Build the project: `npm run build`
