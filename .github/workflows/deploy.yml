@@ -25,7 +25,22 @@ jobs:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
           VITE_ALPHA_VANTAGE_API_KEY: ${{ secrets.VITE_ALPHA_VANTAGE_API_KEY }}
-        run: npm run build
+        run: |
+          echo "Checking environment variables..."
+          if [ -z "$VITE_SUPABASE_URL" ]; then
+            echo "Error: VITE_SUPABASE_URL is not set"
+            exit 1
+          fi
+          if [ -z "$VITE_SUPABASE_ANON_KEY" ]; then
+            echo "Error: VITE_SUPABASE_ANON_KEY is not set"
+            exit 1
+          fi
+          if [ -z "$VITE_ALPHA_VANTAGE_API_KEY" ]; then
+            echo "Error: VITE_ALPHA_VANTAGE_API_KEY is not set"
+            exit 1
+          fi
+          echo "Environment variables are properly set"
+          npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
